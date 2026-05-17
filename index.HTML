@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disney Katalog - Narudžbina</title>
+    <style>
+        :root { --primary: #051937; --standard: #2ecc71; --veci: #f1c40f; --accent: #007bff; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding-bottom: 50px; }
+        .header { position: sticky; top: 0; z-index: 1000; background: var(--primary); color: white; padding: 15px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .counter-box { font-size: 1.4rem; font-weight: bold; margin: 5px 0; }
+        .status-badge { display: inline-block; padding: 6px 20px; border-radius: 20px; font-size: 0.9rem; text-transform: uppercase; font-weight: bold; }
+        .bg-standard { background: var(--standard); color: white; }
+        .bg-veci { background: var(--veci); color: black; border: 2px solid black; }
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
+        .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: pointer; transition: 0.3s; border: 3px solid transparent; position: relative; text-align: center; height: 260px; }
+        .card:hover { transform: scale(1.03); }
+        .card.selected { border-color: var(--accent); box-shadow: 0 0 15px rgba(0,123,255,0.4); }
+        .card.selected::before { content: "✓"; position: absolute; top: 5px; right: 5px; background: var(--accent); color: white; width: 25px; height: 25px; border-radius: 50%; font-size: 16px; line-height: 25px; font-weight: bold; z-index: 5; }
+        .card img { width: 100%; height: 180px; object-fit: cover; background: #eee; }
+        .card-title { padding: 8px; font-size: 0.75rem; font-weight: 600; color: #333; height: 50px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .order-form { background: white; max-width: 600px; margin: 50px auto; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        .btn-order { width: 100%; padding: 15px; background: #28a745; color: white; border: none; border-radius: 5px; font-size: 1.2rem; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h2 style="margin:0;">Disney Katalog</h2>
+    <div class="counter-box">Izabrano: <span id="currentCount">0</span> / 50</div>
+    <div id="statusBadge" class="status-badge bg-standard">STANDARD PAKET (do 30)</div>
+</div>
+
+<div class="container">
+    <div class="grid" id="movieGrid"></div>
+
+    <div class="order-form">
+        <h2>📦 Podaci za porudžbinu</h2>
+        <form id="disneyForm">
+            <div class="form-group">
+                <label>Ime i prezime</label>
+                <input type="text" name="ime" required>
+            </div>
+            <div class="form-group">
+                <label>Ulica i broj</label>
+                <input type="text" name="adresa" required>
+            </div>
+            <div class="form-group">
+                <label>Grad</label>
+                <input type="text" name="grad" required>
+            </div>
+            <div class="form-group">
+                <label>Broj telefona</label>
+                <input type="tel" name="telefon" required>
+            </div>
+            <input type="hidden" name="izabrani_crtaci" id="hiddenCrtaci">
+            
+            <button type="submit" class="btn-order">POŠALJI NARUDŽBINU</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const spisak = ["101 Dalmatinac (1961)", "A Bug's Life (1998)", "Aladin 1 (1992)", "Aladin 2 Povratak Dzafara (1994)", "Aladin 3 Kralj lopova (1996)", "Alisa u zemlji cuda (1951)", "Atlantis 1 - The Lost Empire (2001)", "Automobili 3 - (2017)", "Bambi 1 - (1942)", "Big Hero 6 (2014)", "Brave (2012)", "Brojne pustolovine Vinija Pua (1977)", "Brother Bear 1 (2003)", "Cars 1 (2006)", "Cars 2 (2011)", "Coco (2017)", "Crni kazan - (1985)", "Dambo (1941)", "Dinosaur (2000)", "Dosije pilence (2005)", "Elemental (2023)", "Enkanto Magicni Svet (2021)", "Fantazija (1940)", "Finding Nemo (2003)", "Frozen 2 (2019)", "Frozen (2013)", "Gnomeo and Juliet (2011)", "Grom - (2008)", "Herkules - (1997)", "Inside Out (2015)", "Knjiga o dzungli 1 (1967)", "Kralj lavova (1994)", "Lepotica i zver (1991)", "Lilo and Stitch 1 (2002)", "Lisica i Pas (1981)", "Luka - (2021)", "Mala sirena 1 (1989)", "Mala sirena 2 (2000)", "Maza i lunja (1955)", "Maza i Lunja 2 (2001)", "Macke iz visokog drustva (1970)", "Medvjedic Winnie (2011)", "Mis Bazil Veliki detektiv (1986)", "Moana (2016)", "Monsters 1 - Inc (2001)", "Monsters 2 - University (2013)", "Mulan 1 (1998)", "Napred - (2020)", "Nevidjeni 1 (2004)", "Nevidjeni 2 (2018)", "Oliver i druzina (1998)", "Pepeljuga (1950)", "Pepeljuga 2 (2002)", "Petar Pan 1 (1953)", "Peter Pan 2 Return to Never Land (2002)", "Pinokio (1940)", "Planes 1 (2013)", "Planes 2 - Fire and Rescue (2014)", "Pobuna na farmi (2004)", "Pocahontas 1 (1995)", "Pocahontas 2 Journey to a New World (1998)", "Princeza i Zabac (2009)", "Ratatouille (2007)", "Raya and the Last Dragon (2021)", "Robin Hud (1973)", "Snezana i sedam patuljaka (1937)", "Šiljin film (1995)", "Soul (2020)", "Tangled (2010)", "Tarzan 1 (1999)", "The Good Dinosaur (2015)", "The Jungle Book 2 (2003)", "The Sword In the Stone (1963)", "Toy Story 1 (1995)", "Toy Story 2 (1999)", "Toy Story 3 (2010)", "Toy Story 4 (2019)", "Treasure Planet (2002)", "U potrazi za Dori (2016)", "Up (2009)", "Uspavana lepotica (1959)", "Wall-e (2008)", "Wreck It Ralph 1 (2012)", "Wreck It Ralph 2 Breaks the Internet (2018)", "Zootropolis (2016)", "Zvonar Bogorodicine crkve (1996)"];
+
+    let selectedMovies = [];
+    const grid = document.getElementById('movieGrid');
+
+    spisak.forEach(naslov => {
+        const div = document.createElement('div');
+        div.className = 'card';
+        const searchTerm = encodeURIComponent(naslov + " Disney Poster");
+        div.innerHTML = `<img src="https://external-content.duckduckgo.com/iu/?u=https://tse1.mm.bing.net/th?q=${searchTerm}&f=1" alt="Poster"><div class="card-title">${naslov}</div>`;
+        
+        div.onclick = function() {
+            if (div.classList.contains('selected')) {
+                div.classList.remove('selected');
+                selectedMovies = selectedMovies.filter(m => m !== naslov);
+            } else {
+                if (selectedMovies.length < 50) {
+                    div.classList.add('selected');
+                    selectedMovies.push(naslov);
+                } else { alert("Maksimalno 50 crtaća!"); }
+            }
+            document.getElementById('currentCount').innerText = selectedMovies.length;
+            document.getElementById('hiddenCrtaci').value = selectedMovies.join(", ");
+            updateBadge();
+        };
+        grid.appendChild(div);
+    });
+
+    function updateBadge() {
+        const b = document.getElementById('statusBadge');
+        if (selectedMovies.length > 30) { b.innerText = "VEĆI PAKET"; b.className = "status-badge bg-veci"; }
+        else { b.innerText = "STANDARD PAKET"; b.className = "status-badge bg-standard"; }
+    }
+
+    // SLANJE PODATAKA
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzM79Qr8vdEOg6LF9BOHwD-ZP4JEVKiC6zBgDqT7uNlA9jlogV5lvXiBmWeZODCe4oy/exec'; // <--- OVO JE BITNO
+    const form = document.forms['disneyForm'];
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        if(selectedMovies.length === 0) { alert("Izaberi crtaće!"); return; }
+        
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+          .then(response => alert('Uspešno poslato! Vaša narudžbina je primljena.'))
+          .catch(error => console.error('Greška!', error.message));
+    });
+</script>
+
+</body>
+</html>
