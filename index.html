@@ -30,7 +30,9 @@ body {
     box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
-.counter-box { font-size: 1.2rem; font-weight: bold; }
+.header h2 { margin: 0; cursor: default; user-select: none; }
+
+.counter-box { font-size: 1.2rem; font-weight: bold; margin-top: 5px; }
 .price-box { font-size: 1.1rem; color: #f1c40f; margin-top: 5px; font-weight: bold; }
 
 .search-box {
@@ -46,7 +48,6 @@ body {
     border-radius: 25px;
     border: 2px solid #ddd;
     outline: none;
-    transition: 0.3s;
 }
 
 .container {
@@ -90,6 +91,7 @@ body {
     height: 25px;
     border-radius: 50%;
     line-height: 25px;
+    font-size: 14px;
     font-weight: bold;
 }
 
@@ -142,16 +144,31 @@ input[type="text"], input[type="tel"] {
     box-sizing: border-box;
 }
 
-.admin-panel { display: none; padding: 20px; border: 2px dashed #ccc; margin: 20px; }
+/* ADMIN PANEL - Inicijalno sakriven */
+.admin-panel {
+    display: none;
+    background: #fff;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 400px;
+    border: 2px dashed var(--primary);
+    border-radius: 10px;
+}
 </style>
 </head>
 
 <body>
 
 <div class="header">
-    <h2 style="margin:0">SINHROMANIJA</h2>
+    <h2 id="logo" onclick="tajniKlik()">SINHROMANIJA</h2>
     <div class="counter-box">Izabrano: <span id="currentCount">0</span> / 40</div>
-    <div class="price-box">Cena paketa: 2300 din</div>
+    <div class="price-box">Cena: 2300 din</div>
+</div>
+
+<div class="admin-panel" id="adminPanel">
+    <h3>Admin Panel</h3>
+    <input id="newTitle" placeholder="Naziv novog crtaća">
+    <button onclick="addMovie()" style="padding:10px; background:var(--primary); color:white; border:none; width:100%; cursor:pointer;">DODAJ</button>
 </div>
 
 <div class="search-box">
@@ -163,7 +180,7 @@ input[type="text"], input[type="tel"] {
 
     <div class="order-section">
         <h3>📦 Podaci za porudžbinu</h3>
-        <p><i>Izaberite do 40 crtaća i popunite podatke ispod.</i></p>
+        <p><i>Izaberite do 40 crtaća (Fiksna cena: 2300 din).</i></p>
         <form id="orderForm">
             <label>Ime i prezime</label>
             <input type="text" id="ime" required placeholder="Marko Marković">
@@ -179,22 +196,29 @@ input[type="text"], input[type="tel"] {
     </div>
 </div>
 
-<button onclick="toggleAdmin()" style="opacity:0.2; font-size:8px;">ADMIN</button>
-<div class="admin-panel" id="adminPanel">
-    <input id="newTitle" placeholder="Novi crtać">
-    <button onclick="addMovie()">DODAJ</button>
-</div>
-
 <script>
-let initialSpisak = [
-"10. Života (2024)", "101 Dalmatians 2 - Patch's London Adventure (2003)", "200 Wolf (2024)", "A Cat's Life (2023)", "A Who (2008)", "Aladdin (2019)", "All Dogs Go To Heaven 1 (1989)", "Angry Birds 1 (2016)", "Angry Birds 2 (2019)", "Arthur i Minimoji 1 (2006)", "Arthur i Minimoji 2 (2009)", "Arthur i Minimoji 3 (2010)", "Asterix 1 Gal (1967)", "Asterix 2 and Cleopatra (1968)", "Asterix 3 The Twelve Tasks of Asterix (1976)", "Asterix 4 vs Caesar (1985)", "Asterix 5 in Britain (1986)", "Asterix 6 and the Big Fight (1989)", "Asterix 7 in America (1994)", "Asterix 8 and the Vikings (2006)", "Asterix 9 The Mansions of the Gods (2014)", "Asterix 10 The Secret Of The Magic Potion (2018)", "Astro Boy (2009)", "Avanture malog Don Quijotea (2024)", "Balto 1 (1995)", "Balto 2 Wolf Quest (2002)", "Balto 3 Wings of Change (2004)", "Beauty and the Beast 2 (1997)", "Beauty and the Beast (2017)", "Bekstvo sa planete Zemlje (2013)", "Bigfoot 1 The Son of Bigfoot (2017)", "Cloudy With A Chance Of Meatballs 1 (2009)", "Cloudy With A Chance Of Meatballs 2 (2013)", "Čuvari tajnog kraljevstva (2013)", "DC League of Super-Pets (2022)", "Dečak zvani Božić (2021)", "Despicable Me 1 (2010)", "Despicable Me 2 (2013)", "Despicable Me 3 (2017)", "Despicable Me 4 (2024)", "Detektiv Cvrle i zlatna košnica (2023)", "Dog Man (2025)", "Dora u potrazi za Sol Doradom (2025)", "Dragon Hunters (2008)", "Duck Duck Goose (2018)", "Ekipa iz džungle 1 (2017)", "Ekipa iz džungle 2 (2023)", "Elio (2025)", "Epic (2013)", "Epic Tails (2022)", "Fabrika snova (2020)", "Ferdinand (2017)", "Flow (2024)", "Garfield 1 (2004)", "Garfield 2 (2006)", "Garfield Film (2024)", "Grdana Gospodarica zla (2019)", "Grinč (1966)", "Grinč (2018)", "Happy Feet (2006)", "Hoodwinked (2005)", "Hotel Transylvania 1 (2012)", "Hotel Transylvania 2 (2015)", "Hotel Transylvania 3 (2018)", "Hotel Transylvania 4 (2022)", "How To Train Your Dragon 1 (2010)", "How To Train Your Dragon 2 (2014)", "How To Train Your Dragon 3 (2019)", "Ice Age 2 (2006)", "Ice Age 3 (2009)", "Ice Age 4 (2012)", "Ice Age 5 (2016)", "IF (2024)", "Inside Out 2 (2024)", "Jahač zmaja (2020)", "Justin and the Knights of Valour (2013)", "Kako izdresirati zmaja", "Kantervilski duh (2023)", "Kasper lovi Božić (2000)", "King Tweety (2022)", "Kirikou and the Wild Beasts (2005)", "Kiriku i veštica (1998)", "Ko se boji vuka još 1 (2016)", "Ko se boji vuka još 2 (2019)", "K-pop Lovci na demone", "Kralj Lavova (2019)", "Krcko Oraščić i magična flauta (2023)", "Kuce u operi (2023)", "Kućni ljubimci na tajnom zadatku (2019)", "Kumba (2013)", "Kung Fu Panda 1 (2008)", "Kung Fu Panda 2 (2011)", "Kung Fu Panda 3 (2016)", "Kung Fu Panda 4 (2024)", "Labuđa princeza 1 (1994)", "Legends of Oz Dorothy's Return (2013)", "Lego The Adventures Of Clutch Powers (2010)", "Leo (2023)", "Lesi Nova Avantura (2023)", "Lightyear (2022)", "Lil Lil Krokodil (2022)", "Lilo and Stitch (2025)", "Lola i velika tajna (2019)", "Lorax - Zaštitnik šume (2012)", "Luis and the Aliens (2018)", "Mačke u muzeju (2023)", "Madagascar 1 (2005)", "Madagascar 2 (2008)", "Madagascar 3 (2012)", "Malci otpisanci (2021)", "Male šape na velikom putovanju (2024)", "Mali Vampir (2017)", "Marmaduke (2022)", "Mavka The Forest Song (2023)", "Meda sa severa 4 (2020)", "Meet The Robinsons (2007)", "Mega Um (2010)", "Minecraft FILM (2025)", "Minions 1 (2015)", "Minions 2 Gruov početak (2022)", "Miraculous Ladybug & Cat Noir (2023)", "Mirakulus Svet Pariz", "Missing Link (2019)", "Moana 2 (2024)", "Moja čudna porodica (2024)", "Moja Vila Šeprtlja (2022)", "Monster Family 1 (2017)", "Monsters vs Aliens (2009)", "Mr Peabody and Sherman (2014)", "Mr Bug Goes to Town (1941)", "Mufasa The Lion King (2024)", "Mulan 2 (2004)", "My Little Pony A New Generation (2021)", "Neverovatni Moris (2022)", "Niko 1 (2008)", "Niko 2 (2012)", "Niko 3 Iza Polarne Svetlosti (2024)", "Nojeva barka (2024)", "Norm of the North 3 (2019)", "Orion i mrak (2024)", "Ozi Glas Šume (2023)", "Paddington 1 (2014)", "Paddington 2 (2017)", "Paddington In Peru (2024)", "Panda u Africi (2024)", "Patke selice (2023)", "PAW Patrol 1 (2021)", "PAW Patrol 2 (2023)", "PAW Patrol Jet To The Rescue (2020)", "Peter Pan (2003)", "Peter Rabbit 1 (2018)", "Pinokio Istinita priča (2021)", "Pobuna u kokošinjcu (2023)", "Pocrvenela Panda (2022)", "Popaj u velikoj pustolovini (2004)", "Priče iz skrivenog grada (2021)", "Princeza koju je oteo zmaj (2025)", "Princeza Late i Magični Vodeni Kamen (2020)", "Puss in Boots 1 (2011)", "Puss in Boots 2 The Last Wish (2022)", "Pusti vodu da miševi odu (2006)", "Rango (2011)", "Ričard Roda 2 (2023)", "Rio 1 (2011)", "Rio 2 (2014)", "Rise of the Guardians (2012)", "Robinson Crusoe The Wild Life (2016)", "Ruby Gillman Teenage Kraken (2023)", "Scooby-Doo and the Loch Ness Monster (2004)", "Scooby-Doo and the Reluctant Werewolf (1988)", "Shark Tale (2004)", "Shrek 1 (2001)", "Shrek 2 (2004)", "Shrek 3 (2007)", "Shrek 4 Forever After (2010)", "Sinbad Legend of the Seven Seas (2003)", "Sing 1 (2016)", "Sing 2 (2021)", "Snow White (2025)", "Sonic The Hedgehog 1 (2020)", "Sonic The Hedgehog 2 (2022)", "Sonic The Hedgehog 3 (2024)", "Space Jam 1 (1996)", "Space Jam 2 (2021)", "Spasioci u Australiji (1990)", "Spellbound (2024)", "Spider-Man Across the Spider-Verse (2023)", "Spirit Untamed (2021)", "Storks (2016)", "Stuart Little 1 (1999)", "Stuart Little 2 (2002)", "Stuart Little 3 (2005)", "Sundjer Bob - Prokletstvo Pirata (2025)", "Super Mario Galaxy Film (2026)", "Super Spori Super Moćni (2024)", "Škola Magičnih Životinja 2 (2022)", "Štrumfovi (2025)", "Taj Božić (2024)", "Tarzan (2013)", "Tarzan 2 (2005)", "Technotise Edit i Ja (2009)", "Teenage Mutant Ninja Turtles Mutant Mayhem (2023)", "The Addams Family 1 (2019)", "The Addams Family 2 (2021)", "The Bad Guys (2022)", "The Boss Baby 1 (2017)", "The Boss Baby 2 (2021)", "The Croods 1 (2013)", "The Croods 2 (2020)", "The Fox and the Hound 1 (1981)", "The House Of Magic (2013)", "The Iron Giant (1999)", "The Lion King 3 Hakuna Matata (2004)", "The Mitchells vs the Machines (2021)", "The Prince of Egypt (1998)", "The Road to El Dorado (2000)", "The Secret Life of Pets 1 (2016)", "The Secret Life of Pets 2 (2019)", "The Seventh Dwarf (2017)", "The Smurfs 1 (2011)", "The Smurfs 2 (2013)", "The Smurfs The Lost Village (2017)", "The Snow Queen 1 (2012)", "The Snow Queen 2 (2014)", "The Snow Queen 3 (2016)", "The Snow Queen 4 (2018)", "The Super Mario Bros Movie", "The Wild Robot (2024)", "The Wishmas Tree (2019)", "The King of Kings (2025)", "The Lego Batman Movie (2017)", "The Little Mermaid (2023)", "The Sea Beast (2022)", "Thelma The Unicorn (2024)", "Tinker Bell 1 (2008)", "Tinker Bell 2 (2009)", "Tinker Bell 3 (2010)", "Tinker Bell 4 (2012)", "Tinker Bell 5 (2014)", "Tinker Bell 6 (2014)", "Toma Palčić (2014)", "Toni Šeli i Magično Svetlo (2023)", "Transformersi Početak (2024)", "Trolls 1 (2016)", "Trolls 2 World Tour (2020)", "Trolls 3 Band Together (2023)", "Ups 1 Noah is Gone (2015)", "Ups 2 Avantura se nastavlja (2020)", "Vatreno srce (2022)", "Veliko putovanje 1 (2019)", "Veliko putovanje 2 (2022)", "White Fang (2018)", "Wish (2023)", "Wonka (2023)", "Zambezia (2012)", "Zecko Kos i tajna mrkog hrčka (2022)", "Zečija Akademija Nemoguća Misija (2022)", "Zlica (2024)", "Zootopia 2 (2025)", "Zootropolis 2 (2025)"
-];
+let initialSpisak = ["10. Života (2024)", "101 Dalmatians 2 - Patch's London Adventure (2003)", "200 Wolf (2024)", "A Cat's Life (2023)", "A Who (2008)", "Aladdin (2019)", "All Dogs Go To Heaven 1 (1989)", "Angry Birds 1 (2016)", "Angry Birds 2 (2019)", "Arthur i Minimoji 1 (2006)", "Arthur i Minimoji 2 (2009)", "Arthur i Minimoji 3 (2010)", "Asterix 1 Gal (1967)", "Asterix 2 and Cleopatra (1968)", "Asterix 3 The Twelve Tasks of Asterix (1976)", "Asterix 4 vs Caesar (1985)", "Asterix 5 in Britain (1986)", "Asterix 6 and the Big Fight (1989)", "Asterix 7 in America (1994)", "Asterix 8 and the Vikings (2006)", "Asterix 9 The Mansions of the Gods (2014)", "Asterix 10 The Secret Of The Magic Potion (2018)", "Astro Boy (2009)", "Avanture malog Don Quijotea (2024)", "Balto 1 (1995)", "Balto 2 Wolf Quest (2002)", "Balto 3 Wings of Change (2004)", "Beauty and the Beast 2 (1997)", "Beauty and the Beast (2017)", "Bekstvo sa planete Zemlje (2013)", "Bigfoot 1 The Son of Bigfoot (2017)", "Cloudy With A Chance Of Meatballs 1 (2009)", "Cloudy With A Chance Of Meatballs 2 (2013)", "Čuvari tajnog kraljevstva (2013)", "DC League of Super-Pets (2022)", "Dečak zvani Božić (2021)", "Despicable Me 1 (2010)", "Despicable Me 2 (2013)", "Despicable Me 3 (2017)", "Despicable Me 4 (2024)", "Detektiv Cvrle i zlatna košnica (2023)", "Dog Man (2025)", "Dora u potrazi za Sol Doradom (2025)", "Dragon Hunters (2008)", "Duck Duck Goose (2018)", "Ekipa iz džungle 1 (2017)", "Ekipa iz džungle 2 (2023)", "Elio (2025)", "Epic (2013)", "Epic Tails (2022)", "Fabrika snova (2020)", "Ferdinand (2017)", "Flow (2024)", "Garfield 1 (2004)", "Garfield 2 (2006)", "Garfield Film (2024)", "Grdana Gospodarica zla (2019)", "Grinč (1966)", "Grinč (2018)", "Happy Feet (2006)", "Hoodwinked (2005)", "Hotel Transylvania 1 (2012)", "Hotel Transylvania 2 (2015)", "Hotel Transylvania 3 (2018)", "Hotel Transylvania 4 (2022)", "How To Train Your Dragon 1 (2010)", "How To Train Your Dragon 2 (2014)", "How To Train Your Dragon 3 (2019)", "Ice Age 2 (2006)", "Ice Age 3 (2009)", "Ice Age 4 (2012)", "Ice Age 5 (2016)", "IF (2024)", "Inside Out 2 (2024)", "Jahač zmaja (2020)", "Justin and the Knights of Valour (2013)", "Kako izdresirati zmaja", "Kantervilski duh (2023)", "Kasper lovi Božić (2000)", "King Tweety (2022)", "Kirikou and the Wild Beasts (2005)", "Kiriku i veštica (1998)", "Ko se boji vuka još 1 (2016)", "Ko se boji vuka još 2 (2019)", "K-pop Lovci na demone", "Kralj Lavova (2019)", "Krcko Oraščić i magična flauta (2023)", "Kuce u operi (2023)", "Kućni ljubimci na tajnom zadatku (2019)", "Kumba (2013)", "Kung Fu Panda 1 (2008)", "Kung Fu Panda 2 (2011)", "Kung Fu Panda 3 (2016)", "Kung Fu Panda 4 (2024)", "Labuđa princeza 1 (1994)", "Legends of Oz Dorothy's Return (2013)", "Lego The Adventures Of Clutch Powers (2010)", "Leo (2023)", "Lesi Nova Avantura (2023)", "Lightyear (2022)", "Lil Lil Krokodil (2022)", "Lilo and Stitch (2025)", "Lola i velika tajna (2019)", "Lorax - Zaštitnik šume (2012)", "Luis and the Aliens (2018)", "Mačke u muzeju (2023)", "Madagascar 1 (2005)", "Madagascar 2 (2008)", "Madagascar 3 (2012)", "Malci otpisanci (2021)", "Male šape na velikom putovanju (2024)", "Mali Vampir (2017)", "Marmaduke (2022)", "Mavka The Forest Song (2023)", "Meda sa severa 4 (2020)", "Meet The Robinsons (2007)", "Mega Um (2010)", "Minecraft FILM (2025)", "Minions 1 (2015)", "Minions 2 Gruov početak (2022)", "Miraculous Ladybug & Cat Noir (2023)", "Mirakulus Svet Pariz", "Missing Link (2019)", "Moana 2 (2024)", "Moja čudna porodica (2024)", "Moja Vila Šeprtlja (2022)", "Monster Family 1 (2017)", "Monsters vs Aliens (2009)", "Mr Peabody and Sherman (2014)", "Mr Bug Goes to Town (1941)", "Mufasa The Lion King (2024)", "Mulan 2 (2004)", "My Little Pony A New Generation (2021)", "Neverovatni Moris (2022)", "Niko 1 (2008)", "Niko 2 (2012)", "Niko 3 Iza Polarne Svetlosti (2024)", "Nojeva barka (2024)", "Norm of the North 3 (2019)", "Orion i mrak (2024)", "Ozi Glas Šume (2023)", "Paddington 1 (2014)", "Paddington 2 (2017)", "Paddington In Peru (2024)", "Panda u Africi (2024)", "Patke selice (2023)", "PAW Patrol 1 (2021)", "PAW Patrol 2 (2023)", "PAW Patrol Jet To The Rescue (2020)", "Peter Pan (2003)", "Peter Rabbit 1 (2018)", "Pinokio Istinita priča (2021)", "Pobuna u kokošinjcu (2023)", "Pocrvenela Panda (2022)", "Popaj u velikoj pustolovini (2004)", "Priče iz skrivenog grada (2021)", "Princeza koju je oteo zmaj (2025)", "Princeza Late i Magični Vodeni Kamen (2020)", "Puss in Boots 1 (2011)", "Puss in Boots 2 The Last Wish (2022)", "Pusti vodu da miševi odu (2006)", "Rango (2011)", "Ričard Roda 2 (2023)", "Rio 1 (2011)", "Rio 2 (2014)", "Rise of the Guardians (2012)", "Robinson Crusoe The Wild Life (2016)", "Ruby Gillman Teenage Kraken (2023)", "Scooby-Doo and the Loch Ness Monster (2004)", "Scooby-Doo and the Reluctant Werewolf (1988)", "Shark Tale (2004)", "Shrek 1 (2001)", "Shrek 2 (2004)", "Shrek 3 (2007)", "Shrek 4 Forever After (2010)", "Sinbad Legend of the Seven Seas (2003)", "Sing 1 (2016)", "Sing 2 (2021)", "Snow White (2025)", "Sonic The Hedgehog 1 (2020)", "Sonic The Hedgehog 2 (2022)", "Sonic The Hedgehog 3 (2024)", "Space Jam 1 (1996)", "Space Jam 2 (2021)", "Spasioci u Australiji (1990)", "Spellbound (2024)", "Spider-Man Across the Spider-Verse (2023)", "Spirit Untamed (2021)", "Storks (2016)", "Stuart Little 1 (1999)", "Stuart Little 2 (2002)", "Stuart Little 3 (2005)", "Sundjer Bob - Prokletstvo Pirata (2025)", "Super Mario Galaxy Film (2026)", "Super Spori Super Moćni (2024)", "Škola Magičnih Životinja 2 (2022)", "Štrumfovi (2025)", "Taj Božić (2024)", "Tarzan (2013)", "Tarzan 2 (2005)", "Technotise Edit i Ja (2009)", "Teenage Mutant Ninja Turtles Mutant Mayhem (2023)", "The Addams Family 1 (2019)", "The Addams Family 2 (2021)", "The Bad Guys (2022)", "The Boss Baby 1 (2017)", "The Boss Baby 2 (2021)", "The Croods 1 (2013)", "The Croods 2 (2020)", "The Fox and the Hound 1 (1981)", "The House Of Magic (2013)", "The Iron Giant (1999)", "The Lion King 3 Hakuna Matata (2004)", "The Mitchells vs the Machines (2021)", "The Prince of Egypt (1998)", "The Road to El Dorado (2000)", "The Secret Life of Pets 1 (2016)", "The Secret Life of Pets 2 (2019)", "The Seventh Dwarf (2017)", "The Smurfs 1 (2011)", "The Smurfs 2 (2013)", "The Smurfs The Lost Village (2017)", "The Snow Queen 1 (2012)", "The Snow Queen 2 (2014)", "The Snow Queen 3 (2016)", "The Snow Queen 4 (2018)", "The Super Mario Bros Movie", "The Wild Robot (2024)", "The Wishmas Tree (2019)", "The King of Kings (2025)", "The Lego Batman Movie (2017)", "The Little Mermaid (2023)", "The Sea Beast (2022)", "Thelma The Unicorn (2024)", "Tinker Bell 1 (2008)", "Tinker Bell 2 (2009)", "Tinker Bell 3 (2010)", "Tinker Bell 4 (2012)", "Tinker Bell 5 (2014)", "Tinker Bell 6 (2014)", "Toma Palčić (2014)", "Toni Šeli i Magično Svetlo (2023)", "Transformersi Početak (2024)", "Trolls 1 (2016)", "Trolls 2 World Tour (2020)", "Trolls 3 Band Together (2023)", "Ups 1 Noah is Gone (2015)", "Ups 2 Avantura se nastavlja (2020)", "Vatreno srce (2022)", "Veliko putovanje 1 (2019)", "Veliko putovanje 2 (2022)", "White Fang (2018)", "Wish (2023)", "Wonka (2023)", "Zambezia (2012)", "Zecko Kos i tajna mrkog hrčka (2022)", "Zečija Akademija Nemoguća Misija (2022)", "Zlica (2024)", "Zootopia 2 (2025)", "Zootropolis 2 (2025)"];
 
 let spisak = JSON.parse(localStorage.getItem("mojSpisak")) || initialSpisak;
 let selected = [];
 
 const grid = document.getElementById("grid");
 const search = document.getElementById("search");
+
+// TAJNI ADMIN PRISTUP (5 klikova na logo)
+let klikovi = 0;
+function tajniKlik() {
+    klikovi++;
+    if(klikovi === 5) {
+        let p = prompt("Kod za Admin Panel:");
+        if(p === "123") {
+            document.getElementById("adminPanel").style.display = "block";
+            window.scrollTo(0,0);
+        }
+        klikovi = 0;
+    }
+    setTimeout(() => { klikovi = 0; }, 2000);
+}
 
 function render() {
     grid.innerHTML = "";
@@ -230,22 +254,26 @@ function render() {
 
 search.addEventListener("input", render);
 
-function toggleAdmin() {
-    let p = prompt("Šifra:");
-    if(p === "123") document.getElementById("adminPanel").style.display = "block";
-}
-
 function addMovie() {
-    let val = document.getElementById("newTitle").value;
-    if(val) { spisak.push(val); localStorage.setItem("mojSpisak", JSON.stringify(spisak)); render(); }
+    let val = document.getElementById("newTitle").value.trim();
+    if(val) {
+        spisak.push(val);
+        localStorage.setItem("mojSpisak", JSON.stringify(spisak));
+        document.getElementById("newTitle").value = "";
+        render();
+        alert("Dodato!");
+    }
 }
 
 document.getElementById("orderForm").onsubmit = (e) => {
     e.preventDefault();
-    if(selected.length === 0) { alert("Izaberite crtaće!"); return; }
+    if(selected.length === 0) {
+        alert("Izaberite crtaće pre slanja!");
+        return;
+    }
     
-    alert("Porudžbina poslata!\nIzabrano: " + selected.length + " crtaća.\nCena: 2300 din.");
-    // Ovde fetch ka tvom Google Scriptu...
+    // Ovde ubaci fetch ka Google Scriptu
+    alert("Hvala! Porudžbina je primljena.\nUkupno crtaća: " + selected.length + "\nCena: 2300 din.");
 };
 
 render();
