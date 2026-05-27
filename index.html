@@ -262,9 +262,9 @@ function render() {
 
         // SADA JE OVDE Jasan i fiksan ID slike (m.id) koji se ne menja tokom pretrage!
         div.innerHTML = `
-            <img src="slike/${m.id}.jpg" onerror="this.src='https://via.placeholder.com/300x200?text=SINHROMANIJA'">
-            <div class="card-title">${m.naziv}</div>
-        `;
+    <img src="${m.id}.jpg" onerror="this.src='https://via.placeholder.com/300x200?text=Nema+Slike'">
+    <div class="card-title">${m.naziv}</div>
+`;
 
         div.onclick = () => {
             if(selected.includes(m.naziv)) {
