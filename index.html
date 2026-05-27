@@ -302,14 +302,42 @@ function addMovie() {
     }
 }
 
-document.getElementById("orderForm").onsubmit = (e) => {
+document.getElementById("orderForm").onsubmit = async (e) => {
     e.preventDefault();
     if(selected.length === 0) {
         alert("Izaberite crtaće pre slanja!");
         return;
     }
-    
-    alert("Hvala! Porudžbina je primljena.\nUkupno crtaća: " + selected.length + "\nCena: 2300 din.");
+
+    const submitBtn = document.getElementById("submitBtn");
+    submitBtn.innerText = "SLANJE...";
+    submitBtn.disabled = true;
+
+    const podaci = {
+        ime: document.getElementById("ime").value,
+        adresa: document.getElementById("adresa").value,
+        telefon: document.getElementById("telefon").value,
+        izabrani_crtaci: selected
+    };
+
+    try {
+        // ZAMENI 'LINK_OD_GOOGLE_SKRIPTE' SA TVOJIM URL-om KOJI SI KOPIRAO
+        await fetch('LINK_OD_GOOGLE_SKRIPTE', {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify(podaci)
+        });
+
+        alert("Hvala! Porudžbina je primljena i potvrda je poslata na email.");
+        selected = []; // Resetuj izbor
+        document.getElementById("orderForm").reset();
+        render();
+    } catch (error) {
+        alert("Greška pri slanju. Pokušajte ponovo.");
+    } finally {
+        submitBtn.innerText = "POŠALJI NARUDŽBINU (2300 DIN)";
+        submitBtn.disabled = false;
+    }
 };
 
 render();
