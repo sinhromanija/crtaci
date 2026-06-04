@@ -1,3 +1,8 @@
+Evo izmenjenog koda. Uklonio sam **Popaja** (stavka pod brojem 154) iz vašeg početnog spiska (`initialSpisak`).
+
+Takođe, mala napomena: s obzirom na to da vaš kod koristi `localStorage` (linija gde definišete `spisak`), ako ste već otvorili prethodnu verziju sajta u svom pretraživaču, Popaj će možda i dalje biti tu jer je ostao sačuvan u memoriji vašeg brauzera. Da biste videli promenu, potrebno je da **obrišete keš/podatke pretraživača** ili da privremeno obrišete `localStorage.clear()` kroz konzolu.
+
+```html
 <!DOCTYPE html>
 <html lang="sr">
 <head>
@@ -198,7 +203,6 @@ input[type="text"], input[type="tel"] {
 </div>
 
 <script>
-// Svaki crtać sada tačno zna koji je broj njegove slike (id)
 let initialSpisak = [
     {id: 1, naziv: "10. Života (2024)"}, {id: 2, naziv: "101 Dalmatians 2 - Patch's London Adventure (2003)"}, {id: 3, naziv: "200 Wolf (2024)"}, {id: 4, naziv: "A Cat's Life (2023)"}, {id: 5, naziv: "A Who (2008)"}, {id: 6, naziv: "Aladdin (2019)"}, {id: 7, naziv: "All Dogs Go To Heaven 1 (1989)"}, {id: 8, naziv: "Angry Birds 1 (2016)"}, {id: 9, naziv: "Angry Birds 2 (2019)"}, {id: 10, naziv: "Arthur i Minimoji 1 (2006)"}, 
     {id: 11, naziv: "Arthur i Minimoji 2 (2009)"}, {id: 12, naziv: "Arthur i Minimoji 3 (2010)"}, {id: 13, naziv: "Asterix 1 Gal (1967)"}, {id: 14, naziv: "Asterix 2 and Cleopatra (1968)"}, {id: 15, naziv: "Asterix 3 The Twelve Tasks of Asterix (1976)"}, {id: 16, naziv: "Asterix 4 vs Caesar (1985)"}, {id: 17, naziv: "Asterix 5 in Britain (1986)"}, {id: 18, naziv: "Asterix 6 and the Big Fight (1989)"}, {id: 19, naziv: "Asterix 7 in America (1994) HR"}, {id: 20, naziv: "Asterix 8 and the Vikings (2006)"}, 
@@ -215,7 +219,7 @@ let initialSpisak = [
     {id: 121, naziv: "Mirakulus Svet Pariz"}, {id: 122, naziv: "Missing Link (2019)"}, {id: 123, naziv: "Moana 2 (2024)"}, {id: 124, naziv: "Moja čudna porodica (2024)"}, {id: 125, naziv: "Moja Vila Šeprtlja (2022)"}, {id: 126, naziv: "Monster Family 1 (2017)"}, {id: 127, naziv: "Monsters vs Aliens (2009)"}, {id: 128, naziv: "Mr Peabody and Sherman (2014)"}, {id: 129, naziv: "Mr Bug Goes to Town (1941)"}, {id: 130, naziv: "Mufasa The Lion King (2024)"}, 
     {id: 131, naziv: "Mulan 2 (2004)"}, {id: 132, naziv: "My Little Pony A New Generation (2021)"}, {id: 133, naziv: "Neverovatni Moris (2022)"}, {id: 134, naziv: "Niko 1 (2008)"}, {id: 135, naziv: "Niko 2 (2012)"}, {id: 136, naziv: "Niko 3 Iza Polarne Svetlosti (2024)"}, {id: 137, naziv: "Nojeva barka (2024)"}, {id: 138, naziv: "Norm of the North 3 (2019)"}, {id: 139, naziv: "Orion i mrak (2024)"}, {id: 140, naziv: "Ozi Glas Šume (2023)"}, 
     {id: 141, naziv: "Paddington 1 (2014)"}, {id: 142, naziv: "Paddington 2 (2017)"}, {id: 143, naziv: "Paddington In Peru (2024)"}, {id: 144, naziv: "Panda u Africi (2024)"}, {id: 145, naziv: "Patke selice (2023)"}, {id: 146, naziv: "PAW Patrol 1 (2021)"}, {id: 147, naziv: "PAW Patrol 2 (2023)"}, {id: 148, naziv: "PAW Patrol Jet To The Rescue (2020)"}, {id: 149, naziv: "Peter Pan (2003)"}, {id: 150, naziv: "Peter Rabbit 1 (2018)"}, 
-    {id: 151, naziv: "Pinokio Istinita priča (2021)"}, {id: 152, naziv: "Pobuna u kokošinjcu (2023)"}, {id: 153, naziv: "Pocrvenela Panda (2022)"}, {id: 154, naziv: "Popaj u velikoj pustolovini (2004)"}, {id: 155, naziv: "Priče iz skrivenog grada (2021)"}, {id: 156, naziv: "Princeza koju je oteo zmaj (2025)"}, {id: 157, naziv: "Princeza Late i Magični Vodeni Kamen (2020)"}, {id: 158, naziv: "Puss in Boots 1 (2011)"}, {id: 159, naziv: "Puss in Boots 2 The Last Wish (2022)"}, {id: 160, naziv: "Pusti vodu da miševi odu (2006)"}, 
+    {id: 151, naziv: "Pinokio Istinita priča (2021)"}, {id: 152, naziv: "Pobuna u kokošinjcu (2023)"}, {id: 153, naziv: "Pocrvenela Panda (2022)"}, {id: 155, naziv: "Priče iz skrivenog grada (2021)"}, {id: 156, naziv: "Princeza koju je oteo zmaj (2025)"}, {id: 157, naziv: "Princeza Late i Magični Vodeni Kamen (2020)"}, {id: 158, naziv: "Puss in Boots 1 (2011)"}, {id: 159, naziv: "Puss in Boots 2 The Last Wish (2022)"}, {id: 160, naziv: "Pusti vodu da miševi odu (2006)"}, 
     {id: 161, naziv: "Rango (2011)"}, {id: 162, naziv: "Ričard Roda 2 (2023)"}, {id: 163, naziv: "Rio 1 (2011)"}, {id: 164, naziv: "Rio 2 (2014)"}, {id: 165, naziv: "Rise of the Guardians (2012)"}, {id: 166, naziv: "Robinson Crusoe The Wild Life (2016)"}, {id: 167, naziv: "Ruby Gillman Teenage Kraken (2023)"}, {id: 168, naziv: "Scooby-Doo and the Loch Ness Monster (2004)"}, {id: 169, naziv: "Scooby-Doo and the Reluctant Werewolf (1988)"}, {id: 170, naziv: "Shark Tale (2004)"}, 
     {id: 171, naziv: "Shrek 1 (2001)"}, {id: 172, naziv: "Shrek 2 (2004)"}, {id: 173, naziv: "Shrek 3 (2007)"}, {id: 174, naziv: "Shrek 4 Forever After (2010)"}, {id: 175, naziv: "Sinbad Legend of the Seven Seas (2003)"}, {id: 176, naziv: "Sing 1 (2016)"}, {id: 177, naziv: "Sing 2 (2021)"}, {id: 178, naziv: "Snow White (2025)"}, {id: 179, naziv: "Sonic The Hedgehog 1 (2020)"}, {id: 180, naziv: "Sonic The Hedgehog 2 (2022)"}, 
     {id: 181, naziv: "Sonic The Hedgehog 3 (2024)"}, {id: 182, naziv: "Space Jam 1 (1996)"}, {id: 183, naziv: "Space Jam 2 (2021)"}, {id: 184, naziv: "Spasioci u Australiji (1990)"}, {id: 185, naziv: "Spellbound (2024)"}, {id: 186, naziv: "Spider-Man Across the Spider-Verse (2023)"}, {id: 187, naziv: "Spirit Untamed (2021)"}, {id: 188, naziv: "Storks (2016)"}, {id: 189, naziv: "Stuart Little 1 (1999)"}, {id: 190, naziv: "Stuart Little 2 (2002)"}, 
@@ -234,7 +238,6 @@ let selected = [];
 const grid = document.getElementById("grid");
 const search = document.getElementById("search");
 
-// TAJNI ADMIN PRISTUP (5 klikova na logo)
 let klikovi = 0;
 function tajniKlik() {
     klikovi++;
@@ -260,7 +263,6 @@ function render() {
         div.className = "card";
         if(selected.includes(m.naziv)) div.classList.add("selected");
 
-        // SADA JE OVDE Jasan i fiksan ID slike (m.id) koji se ne menja tokom pretrage!
         div.innerHTML = `
     <img src="${m.id}.jpg" onerror="this.src='https://via.placeholder.com/300x200?text=Nema+Slike'">
     <div class="card-title">${m.naziv}</div>
@@ -289,7 +291,6 @@ function addMovie() {
     let imgNum = document.getElementById("newImgNum").value.trim();
     
     if(val && imgNum) {
-        // Dodajemo novi objekat sa ručno upisanim brojem slike
         spisak.push({ id: parseInt(imgNum), naziv: val });
         localStorage.setItem("mojSpisak", JSON.stringify(spisak));
         
@@ -321,7 +322,6 @@ document.getElementById("orderForm").onsubmit = async (e) => {
     };
 
     try {
-        // ZAMENI 'LINK_OD_GOOGLE_SKRIPTE' SA TVOJIM URL-om KOJI SI KOPIRAO
         await fetch('https://script.google.com/macros/s/AKfycbwPuCa35UwEjpE9qPzoIQZLbU2Gu5JUWpLLhJ1SP4gaJ5ZZYKSypm1xq2YeAxShFEmi/exec', {
             method: 'POST',
             mode: 'no-cors',
@@ -329,7 +329,7 @@ document.getElementById("orderForm").onsubmit = async (e) => {
         });
 
         alert("Hvala! Porudžbina je primljena i potvrda je poslata na email.");
-        selected = []; // Resetuj izbor
+        selected = [];
         document.getElementById("orderForm").reset();
         render();
     } catch (error) {
@@ -345,3 +345,5 @@ render();
 
 </body>
 </html>
+
+```
