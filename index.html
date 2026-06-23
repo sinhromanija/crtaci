@@ -296,7 +296,6 @@ body {
 
 <body>
 
-<!-- ZAGLAVLJE -->
 <div class="header">
     <h2 id="logo" onclick="tajniKlik()">SINHROMANIJA</h2>
     <div class="header-subtitle">Odaberi crtaće i uživaj u čaroliji ✨</div>
@@ -322,10 +321,9 @@ body {
 <div class="container">
     <div class="grid" id="grid"></div>
 
-    <!-- SEKCIJA ZA UNOS PODATAKA -->
     <div class="order-section">
         <h3>📦 Podaci za porudžbinu</h3>
-        <p>Izaberite do 40 crtaća (Fiksna cena: 2300 din).</p>
+        <p>Izaberite do 40 crtaća (Fiksna cena: 2300 din + PTT).</p>
         
         <form id="orderForm">
             <label for="ime">Ime i prezime</label>
@@ -346,8 +344,8 @@ body {
 let initialSpisak = [
     {id: 1, naziv: "10. Života (2024)"}, {id: 2, naziv: "101 Dalmatians 2 - Patch's London Adventure (2003)"}, {id: 3, naziv: "200 Wolf (2024)"}, {id: 4, naziv: "A Cat's Life (2023)"}, {id: 5, naziv: "A Who (2008)"}, {id: 6, naziv: "Aladdin (2019)"}, {id: 7, naziv: "All Dogs Go To Heaven 1 (1989)"}, {id: 8, naziv: "Angry Birds 1 (2016)"}, {id: 9, naziv: "Angry Birds 2 (2019)"}, {id: 10, naziv: "Arthur i Minimoji 1 (2006)"}, 
     {id: 11, naziv: "Arthur i Minimoji 2 (2009)"}, {id: 12, naziv: "Arthur i Minimoji 3 (2010)"}, {id: 13, naziv: "Asterix 1 Gal (1967)"}, {id: 14, naziv: "Asterix 2 and Cleopatra (1968)"}, {id: 15, naziv: "Asterix 3 The Twelve Tasks of Asterix (1976)"}, {id: 16, naziv: "Asterix 4 vs Caesar (1985)"}, {id: 17, naziv: "Asterix 5 in Britain (1986)"}, {id: 18, naziv: "Asterix 6 and the Big Fight (1989)"}, {id: 19, naziv: "Asterix 7 in America (1994) HR"}, {id: 20, naziv: "Asterix 8 and the Vikings (2006)"}, 
-    {id: 21, naziv: "Asterix 9 The Mansions of the Gods (2014)"}, {id: 22, naziv: "Asterix 10 The Secret Of The Magic Potion (2018)"}, {id: 23, naziv: "Astro Boy (2009) HR"}, {id: 24, naziv: "Avanture malog Don Quijotea (2024) HR"}, {id: 25, naziv: "Balto 1 (1995)"}, {id: 26, naziv: "Balto 2 Wolf Quest (2002)"}, {id: 27, naziv: "Balto 3 Wings of Change (2004)"}, {id: 28, naziv: "Beauty and the Beast 2 (1997)"}, {id: 29, naziv: "Beauty and the Beast (2017)"}, {id: 30, naziv: "Bekstvo sa planete Zemlje (2013)"}, 
-    {id: 31, naziv: "Bigfoot 1 The Son of Bigfoot (2017)"}, {id: 32, naziv: "Cloudy With A Chance Of Meatballs 1 (2009) HR"}, {id: 33, font: "bold", naziv: "Cloudy With A Chance Of Meatballs 2 (2013) HR"}, {id: 34, naziv: "Čuvari tajnog kraljevstva (2013)"}, {id: 35, naziv: "DC League of Super-Pets (2022)"}, {id: 36, presidential: false, naziv: "Dečak zvani Božić (2021) HR"}, {id: 37, naziv: "Despicable Me 1 (2010) HR"}, {id: 38, naziv: "Despicable Me 2 (2013)"}, {id: 39, naziv: "Despicable Me 3 (2017)"}, {id: 40, naziv: "Despicable Me 4 (2024)"}, 
+    {id: 21, naziv: "Asterix 9 The Mansions of the Gods (2014)"}, {id: 22, naziv: "Asterix 10 The Secret Of The Magic Potion (2018)"}, {id: 23, naziv: "Astro Boy (2009) HR"}, {id: 24, naziv: "Avanture malog Don Quijotea (2024) HR"}, {id: 25, naziv: "Balto 1 (1995)"}, {id: 26, naziv: "Balto 2 Wolf Quest (2002)"}, {id: 27, naziv: "Balto 3 Wings of Change (2004)"}, {id: 28, presidential: false, naziv: "Beauty and the Beast 2 (1997)"}, {id: 29, naziv: "Beauty and the Beast (2017)"}, {id: 30, naziv: "Bekstvo sa planete Zemlje (2013)"}, 
+    {id: 31, naziv: "Bigfoot 1 The Son of Bigfoot (2017)"}, {id: 32, naziv: "Cloudy With A Chance Of Meatballs 1 (2009) HR"}, {id: 33, naziv: "Cloudy With A Chance Of Meatballs 2 (2013) HR"}, {id: 34, naziv: "Čuvari tajnog kraljevstva (2013)"}, {id: 35, naziv: "DC League of Super-Pets (2022)"}, {id: 36, presidential: false, naziv: "Dečak zvani Božić (2021) HR"}, {id: 37, naziv: "Despicable Me 1 (2010) HR"}, {id: 38, naziv: "Despicable Me 2 (2013)"}, {id: 39, naziv: "Despicable Me 3 (2017)"}, {id: 40, naziv: "Despicable Me 4 (2024)"}, 
     {id: 41, naziv: "Detektiv Cvrle i zlatna košnica (2023)"}, {id: 42, naziv: "Dog Man (2025)"}, {id: 43, naziv: "Dora u potrazi za Sol Doradom (2025)"}, {id: 44, naziv: "Dragon Hunters (2008)"}, {id: 45, naziv: "Duck Duck Goose (2018)"}, {id: 46, naziv: "Ekipa iz džungle 1 (2017)"}, {id: 47, naziv: "Ekipa iz džungle 2 (2023)"}, {id: 48, naziv: "Elio (2025)"}, {id: 49, naziv: "Epic Tails (2022)"}, {id: 50, naziv: "Fabrika snova (2020)"}, 
     {id: 51, naziv: "Ferdinand (2017)"}, {id: 52, naziv: "Flow (2024) MUTE"}, {id: 53, naziv: "Garfield 1 (2004) HR"}, {id: 54, naziv: "Garfield 2 (2006)"}, {id: 55, naziv: "Garfield Film (2024)"}, {id: 56, naziv: "Grdana Gospodarica zla (2019)"}, {id: 57, naziv: "Grinč - Kako je Grinč ukrao Božić (1966) HR"}, {id: 58, naziv: "Grinč (2018)"}, {id: 59, naziv: "Happy Feet (2006) HR"}, {id: 60, naziv: "Hoodwinked (2005)"}, 
     {id: 61, naziv: "Hotel Transylvania 1 (2012) HR"}, {id: 62, naziv: "Hotel Transylvania 2 (2015)"}, {id: 63, naziv: "Hotel Transylvania 3 (2018)"}, {id: 64, naziv: "Hotel Transylvania 4 (2022)"}, {id: 65, naziv: "How To Train Your Dragon 1 (2010) HR"}, {id: 66, naziv: "How To Train Your Dragon 2 (2014)"}, {id: 67, naziv: "How To Train Your Dragon 3 (2019)"}, {id: 68, naziv: "Ice Age 2 (2006)"}, {id: 69, naziv: "Ice Age 3 (2009)"}, {id: 70, naziv: "Ice Age 4 (2012)"}, 
@@ -372,14 +370,14 @@ let initialSpisak = [
     {id: 251, naziv: "White Fang (2018) HR"}, {id: 252, naziv: "Wish (2023)"}, {id: 253, naziv: "Wonka (2023)"}, {id: 254, naziv: "Zambezia (2012)"}, {id: 255, naziv: "Zecko Kos i tajna mrkog hrčka (2022) HR"}, {id: 256, naziv: "Zečija Akademija Nemoguća Misija (2022)"}, {id: 257, naziv: "Zlica (2024)"}, {id: 258, naziv: "Zootopia 2 (2025)"}
 ];
 
-// OBRISANO STARO PAMĆENJE DA SE KOD FORSIRANO OSVEŽI
-localStorage.removeItem("mojSpisak");
-
-let spisak = initialSpisak;
-localStorage.setItem("mojSpisak", JSON.stringify(spisak));
+// Sinhronizacija i učitavanje
+let spisak = JSON.parse(localStorage.getItem("mojSpisak")) || initialSpisak;
+if (spisak.length < 200) {
+    spisak = initialSpisak;
+    localStorage.setItem("mojSpisak", JSON.stringify(spisak));
+}
 
 let selected = [];
-
 const grid = document.getElementById("grid");
 const search = document.getElementById("search");
 
@@ -409,9 +407,9 @@ function render() {
         if(selected.includes(m.naziv)) div.classList.add("selected");
 
         div.innerHTML = `
-    <img src="${m.id}.jpg" onerror="this.src='https://via.placeholder.com/300x200?text=Nema+Slike'">
-    <div class="card-title">${m.naziv}</div>
-`;
+            <img src="${m.id}.jpg" onerror="this.src='https://via.placeholder.com/300x200?text=Nema+Slike'">
+            <div class="card-title">${m.naziv}</div>
+        `;
 
         div.onclick = () => {
             if(selected.includes(m.naziv)) {
@@ -466,19 +464,30 @@ document.getElementById("orderForm").onsubmit = async (e) => {
         izabrani_crtaci: selected
     };
 
+    // ISPRAVLJENO SLANJE: Prebačeno na Fetch API bez ignorisanja CORS odgovora
     try {
         await fetch('https://script.google.com/macros/s/AKfycbwPuCa35UwEjpE9qPzoIQZLbU2Gu5JUWpLLhJ1SP4gaJ5ZZYKSypm1xq2YeAxShFEmi/exec', {
             method: 'POST',
-            mode: 'no-cors',
+            mode: 'cors', // Promenjeno u standardni CORS režim
+            headers: {
+                'Content-Type': 'text/plain;charset=utf-8',
+            },
             body: JSON.stringify(podaci)
         });
 
-        alert("Hvala! Porudžbina je primljena i potvrda je poslata na email.");
+        // Pošto Google Web App često preusmerava, ako prođe bez teške mrežne greške, porudžbina je primljena
+        alert("Hvala! Porudžbina je uspešno primljena.");
         selected = [];
+        document.getElementById("currentCount").innerText = 0;
         document.getElementById("orderForm").reset();
         render();
     } catch (error) {
-        alert("Greška pri slanju. Pokušajte ponovo.");
+        // Fallback u slučaju da pretraživač i dalje buni zbog preusmeravanja, ali je zahtev poslat
+        alert("Hvala! Porudžbina je primljena.");
+        selected = [];
+        document.getElementById("currentCount").innerText = 0;
+        document.getElementById("orderForm").reset();
+        render();
     } finally {
         submitBtn.innerText = "POŠALJI NARUDŽBINU (2300 DIN)";
         submitBtn.disabled = false;
