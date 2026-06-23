@@ -8,28 +8,33 @@
 <style>
 :root {
     --primary: #051937;
+    --primary-light: #113063;
     --accent: #007bff;
     --success: #28a745;
+    --text-dark: #2d3748;
+    --text-muted: #718096;
+    --gold: #f1c40f;
 }
 
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
     margin: 0;
-    background: #f0f2f5;
+    background: #f7fafc;
+    color: var(--text-dark);
     text-align: center;
-    padding-bottom: 50px;
+    padding-bottom: 60px;
 }
 
-/* NOVO MODERNO ZAGLAVLJE */
+/* MODERNO I UREDNO ZAGLAVLJE */
 .header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: linear-gradient(135deg, #051937 0%, #113063 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
     color: white;
     padding: 20px 15px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    border-bottom: 3px solid #f1c40f;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    border-bottom: 3px solid var(--gold);
 }
 
 .header h2 { 
@@ -38,83 +43,96 @@ body {
     user-select: none; 
     font-size: 2.2rem;
     letter-spacing: 2px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    background: linear-gradient(45deg, #fff, #f1c40f);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+    background: linear-gradient(45deg, #ffffff, var(--gold));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .header-subtitle {
     font-size: 1rem;
-    color: #e0e6ed;
-    margin: 5px 0 12px 0;
+    color: #e2e8f0;
+    margin: 6px 0 12px 0;
     font-weight: 500;
-    font-style: italic;
 }
 
 .shipping-badge {
     background: rgba(241, 196, 15, 0.15);
-    border: 1px dashed #f1c40f;
-    color: #f1c40f;
-    padding: 6px 15px;
+    border: 1px dashed var(--gold);
+    color: var(--gold);
+    padding: 6px 16px;
     border-radius: 20px;
     display: inline-block;
     font-size: 0.9rem;
     font-weight: bold;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 }
 
 .header-info-row {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    max-width: 500px;
+    gap: 15px;
+    max-width: 480px;
     margin: 0 auto;
 }
 
 .counter-box { 
-    font-size: 1.1rem; 
+    font-size: 1rem; 
     font-weight: bold; 
     background: rgba(255,255,255,0.1);
-    padding: 5px 15px;
+    padding: 6px 14px;
     border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.15);
+    flex: 1;
 }
 
 .price-box { 
-    font-size: 1.1rem; 
+    font-size: 1rem; 
     color: #fff; 
     background: var(--success);
-    padding: 5px 15px;
+    padding: 6px 14px;
     border-radius: 8px;
     font-weight: bold; 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    flex: 1;
 }
 
+/* PRETRAGA */
 .search-box {
-    margin: 20px auto;
+    margin: 25px auto;
     width: 90%;
     max-width: 500px;
 }
 
 .search-box input {
     width: 100%;
-    padding: 12px;
+    padding: 14px 20px;
     font-size: 16px;
-    border-radius: 25px;
-    border: 2px solid #ddd;
+    border-radius: 30px;
+    border: 2px solid #e2e8f0;
+    background: #ffffff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
     outline: none;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
 }
 
+.search-box input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(0,123,255,0.15);
+}
+
+/* KATALOG / GRID */
 .container {
     max-width: 1200px;
     margin: auto;
-    padding: 10px;
+    padding: 0 15px;
 }
 
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
-    gap: 15px;
+    gap: 20px;
 }
 
 .card {
@@ -124,16 +142,21 @@ body {
     overflow: hidden;
     border: 3px solid transparent;
     height: 280px;
-    transition: 0.2s;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
     position: relative;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.08);
 }
 
 .card.selected {
     border-color: var(--accent);
-    box-shadow: 0 0 15px rgba(0,123,255,0.3);
+    box-shadow: 0 0 15px rgba(0,123,255,0.25);
 }
 
 .card.selected::after {
@@ -143,67 +166,119 @@ body {
     right: 10px;
     background: var(--accent);
     color: white;
-    width: 25px;
-    height: 25px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
-    line-height: 25px;
+    line-height: 26px;
     font-size: 14px;
     font-weight: bold;
     z-index: 5;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 .card img {
     width: 100%;
-    height: 200px;
+    height: 195px;
     object-fit: contain;
     background: #1e293b;
-    padding: 4px 0;
+    padding: 6px 0;
     box-sizing: border-box;
 }
 
 .card-title {
-    font-size: 0.8rem;
-    padding: 8px;
-    font-weight: bold;
+    font-size: 0.85rem;
+    padding: 10px;
+    font-weight: 600;
     flex-grow: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #333;
-    background: #fff;
-    line-height: 1.2;
+    color: var(--text-dark);
+    background: #ffffff;
+    line-height: 1.3;
 }
 
+/* ISPRAVLJENA I SREĐENA SEKCIJA ZA PORUČIVANJE */
 .order-section {
-    background: white;
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 30px;
-    border-radius: 15px;
+    background: #ffffff;
+    max-width: 550px;
+    margin: 50px auto 20px auto;
+    padding: 35px 30px;
+    border-radius: 16px;
     text-align: left;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    border: 1px solid #edf2f7;
+}
+
+.order-section h3 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    color: var(--primary);
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.order-section p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+    line-height: 1.4;
+}
+
+.order-section label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-dark); /* Osigurava da se tekst vidi jasno */
+    margin-bottom: 6px;
+}
+
+.order-section input[type="text"], 
+.order-section input[type="tel"] {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 20px;
+    border: 1px solid #cbd5e0;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 15px;
+    color: #1a202c; /* Vidljiv, taman tekst unutar polja */
+    background-color: #f8fafc;
+    transition: all 0.15s ease;
+}
+
+.order-section input:focus {
+    border-color: var(--accent);
+    background-color: #fff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
 }
 
 .btn-order {
     background: var(--success);
     color: white;
     border: none;
-    padding: 15px;
+    padding: 16px;
     font-size: 1.1rem;
     font-weight: bold;
     border-radius: 8px;
     cursor: pointer;
     width: 100%;
-    margin-top: 15px;
+    margin-top: 5px;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+    transition: background 0.2s ease;
 }
 
-input[type="text"], input[type="tel"] {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
+.btn-order:hover {
+    background: #218838;
+}
+
+.btn-order:disabled {
+    background: #a0aec0;
+    cursor: not-allowed;
+    box-shadow: none;
 }
 
 /* ADMIN PANEL */
@@ -221,7 +296,7 @@ input[type="text"], input[type="tel"] {
 
 <body>
 
-<!-- NOVO MODERNIZOVANO ZAGLAVLJE -->
+<!-- MODERNIZOVANO ZAGLAVLJE -->
 <div class="header">
     <h2 id="logo" onclick="tajniKlik()">SINHROMANIJA</h2>
     <div class="header-subtitle">Odaberi crtaće i uživaj u čaroliji ✨</div>
@@ -230,7 +305,7 @@ input[type="text"], input[type="tel"] {
     <div class="header-info-row">
         <div class="counter-box">Izabrano: <span id="currentCount">0</span> / 40</div>
         <div class="price-box">Cena: 2300 din</div>
-    }
+    </div>
 </div>
 
 <div class="admin-panel" id="adminPanel">
@@ -247,17 +322,19 @@ input[type="text"], input[type="tel"] {
 <div class="container">
     <div class="grid" id="grid"></div>
 
+    <!-- PODEŠENA I POPRAVLJENA SEKCIJA ZA UNOS PODATAKA -->
     <div class="order-section">
         <h3>📦 Podaci za porudžbinu</h3>
-        <p><i>Izaberite do 40 crtaća (Fiksna cena: 2300 din).</i></p>
+        <p>Izaberite do 40 crtaća (Fiksna cena: 2300 din).</p>
+        
         <form id="orderForm">
-            <label>Ime i prezime</label>
+            <label for="ime">Ime i prezime</label>
             <input type="text" id="ime" required placeholder="Marko Marković">
             
-            <label>Adresa i grad</label>
-            <input type="text" id="adresa" required placeholder="Ulica 12, Beograd">
+            <label for="adresa">Adresa i grad</label>
+            <input type="text" id="adresa" required placeholder="Ulica i broj, Mesto">
             
-            <label>Broj telefona</label>
+            <label for="telefon">Broj telefona</label>
             <input type="tel" id="telefon" required placeholder="06x xxx xxxx">
             
             <button type="submit" class="btn-order" id="submitBtn">POŠALJI NARUDŽBINU (2300 DIN)</button>
@@ -278,7 +355,7 @@ let initialSpisak = [
     {id: 81, naziv: "Kiriku i veštica (1998)"}, {id: 82, naziv: "Ko se boji vuka još 1 (2016)"}, {id: 83, naziv: "Ko se boji vuka još 2 (2019)"}, {id: 84, naziv: "K-pop Lovci na demone (2025) HR"}, {id: 85, naziv: "Kralj Lavova (2019)"}, {id: 86, naziv: "Krcko Oraščić i magična flauta (2023)"}, {id: 87, naziv: "Kuce u operi (2023)"}, {id: 88, naziv: "Kućni ljubimci na tajnom zadatku (2019)"}, {id: 89, naziv: "Kumba (2013)"}, {id: 90, naziv: "Kung Fu Panda 1 (2008) HR"}, 
     {id: 91, naziv: "Kung Fu Panda 2 (2011)"}, {id: 92, naziv: "Kung Fu Panda 3 (2016)"}, {id: 93, CustomProperty: true, naziv: "Kung Fu Panda 4 (2024)"}, {id: 94, naziv: "Labuđa princeza 1 (1994) HR"}, {id: 95, naziv: "Legends of Oz Dorothy's Return (2013)"}, {id: 96, naziv: "Lego The Adventures Of Clutch Powers (2010)"}, {id: 97, naziv: "Leo (2023) HR"}, {id: 98, naziv: "Lesi Nova Avantura (2023)"}, {id: 99, naziv: "Lightyear (2022) HR"}, {id: 100, naziv: "Lil Lil Krokodil (2022)"}, 
     {id: 101, naziv: "Lilo and Stitch (2025)"}, {id: 102, naziv: "Lola i velika tajna (2019) HR"}, {id: 103, naziv: "Lorax - Zaštitnik šume (2012) HR"}, {id: 104, naziv: "Luis and the Aliens (2018)"}, {id: 105, naziv: "Mačke u muzeju (2023)"}, {id: 106, naziv: "Madagascar 1 (2005) HR"}, {id: 107, naziv: "Madagascar 2 (2008)"}, {id: 108, naziv: "Madagascar 3 (2012)"}, {id: 109, naziv: "Malci otpisanci (2021)"}, {id: 110, naziv: "Male šape na velikom putovanju (2024)"}, 
-    {id: 111, naziv: "Mali Vampir (2017)"}, {id: 112, naziv: "Marmaduke (2022)"}, {id: 113, naziv: "Mavka The Forest Song (2023)"}, {id: 114, naziv: "Meda sa severa 4 (2020)"}, {id: 115, naziv: "Meet The Robinsons (2007) HR"}, {id: 116, naziv: "Mega Um (2010)"}, {id: 117, naziv: "Minecraft FILM (2025)"}, {id: 118, naziv: "Minions 1 (2015)"}, {id: 119, naziv: "Minions 2 Gruov početak (2022)"}, {id: 120, naziv: "Miraculous Ladybug & Cat Noir (2023)"}, 
+    {id: 111, naziv: "Mali Vampir (2017)"}, {id: 112, naziv: "Marmaduke (2022)"}, {id: 113, naziv: "Mavka The Forest Song (2023)"}, {id: 114, naziv: "Meda sa severa 4 (2020)"}, {id: 115, naziv: "Meet The Robinsons (2007) HR"}, {id: 116, naziv: "Mega Um (2010)"}, {id: 117, naziv: "Minecraft FILM (2025)"}, {id: 118, naziv: "Minions 1 (2015)"}, {id: 119, naziv: "Minions 2 Gruov početak (2022)"}, {id: 120, java: "Miraculous Ladybug & Cat Noir (2023)"}, 
     {id: 121, naziv: "Mirakulus Svet Pariz"}, {id: 122, naziv: "Missing Link (2019)"}, {id: 123, naziv: "Moana 2 (2024)"}, {id: 124, naziv: "Moja čudna porodica (2024)"}, {id: 125, naziv: "Moja Vila Šeprtlja (2022)"}, {id: 126, naziv: "Monster Family 1 (2017)"}, {id: 127, naziv: "Monsters vs Aliens (2009) HR"}, {id: 128, naziv: "Mr Peabody and Sherman (2014)"}, {id: 129, naziv: "Mr Bug Goes to Town (1941)"}, {id: 130, naziv: "Mufasa The Lion King (2024)"}, 
     {id: 131, naziv: "Mulan 2 (2004)"}, {id: 132, naziv: "My Little Pony A New Generation (2021)"}, {id: 133, naziv: "Neverovatni Moris (2022)"}, {id: 134, naziv: "Niko 1 (2008) HR"}, {id: 135, naziv: "Niko 2 (2012)"}, {id: 136, naziv: "Niko 3 Iza Polarne Svetlosti (2024)"}, {id: 137, naziv: "Nojeva barka (2024)"}, {id: 138, naziv: "Norm of the North 3 (2019)"}, {id: 139, naziv: "Orion i mrak (2024) HR"}, {id: 140, naziv: "Ozi Glas Šume (2023)"}, 
     {id: 141, naziv: "Paddington 1 (2014)"}, {id: 142, naziv: "Paddington 2 (2017)"}, {id: 143, naziv: "Paddington In Peru (2024)"}, {id: 144, naziv: "Panda u Africi (2024)"}, {id: 145, naziv: "Patke selice (2023)"}, {id: 146, naziv: "PAW Patrol 1 (2021)"}, {id: 147, naziv: "PAW Patrol 2 (2023)"}, {id: 148, naziv: "PAW Patrol Jet To The Rescue (2020)"}, {id: 149, naziv: "Peter Pan (2003) HR"}, {id: 150, naziv: "Peter Rabbit 1 (2018)"}, 
