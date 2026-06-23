@@ -20,20 +20,75 @@ body {
     padding-bottom: 50px;
 }
 
+/* NOVO MODERNO ZAGLAVLJE */
 .header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: var(--primary);
+    background: linear-gradient(135deg, #051937 0%, #113063 100%);
     color: white;
-    padding: 15px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    padding: 20px 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    border-bottom: 3px solid #f1c40f;
 }
 
-.header h2 { margin: 0; cursor: default; user-select: none; }
+.header h2 { 
+    margin: 0; 
+    cursor: pointer; 
+    user-select: none; 
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    background: linear-gradient(45deg, #fff, #f1c40f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-.counter-box { font-size: 1.2rem; font-weight: bold; margin-top: 5px; }
-.price-box { font-size: 1.1rem; color: #f1c40f; margin-top: 5px; font-weight: bold; }
+.header-subtitle {
+    font-size: 1rem;
+    color: #e0e6ed;
+    margin: 5px 0 12px 0;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.shipping-badge {
+    background: rgba(241, 196, 15, 0.15);
+    border: 1px dashed #f1c40f;
+    color: #f1c40f;
+    padding: 6px 15px;
+    border-radius: 20px;
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.header-info-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.counter-box { 
+    font-size: 1.1rem; 
+    font-weight: bold; 
+    background: rgba(255,255,255,0.1);
+    padding: 5px 15px;
+    border-radius: 8px;
+}
+
+.price-box { 
+    font-size: 1.1rem; 
+    color: #fff; 
+    background: var(--success);
+    padding: 5px 15px;
+    border-radius: 8px;
+    font-weight: bold; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
 
 .search-box {
     margin: 20px auto;
@@ -166,10 +221,16 @@ input[type="text"], input[type="tel"] {
 
 <body>
 
+<!-- NOVO MODERNIZOVANO ZAGLAVLJE -->
 <div class="header">
     <h2 id="logo" onclick="tajniKlik()">SINHROMANIJA</h2>
-    <div class="counter-box">Izabrano: <span id="currentCount">0</span> / 40</div>
-    <div class="price-box">Cena: 2300 din</div>
+    <div class="header-subtitle">Odaberi crtaće i uživaj u čaroliji ✨</div>
+    <div class="shipping-badge">📦 Slanje Post express-om</div>
+    
+    <div class="header-info-row">
+        <div class="counter-box">Izabrano: <span id="currentCount">0</span> / 40</div>
+        <div class="price-box">Cena: 2300 din</div>
+    }
 </div>
 
 <div class="admin-panel" id="adminPanel">
@@ -224,7 +285,7 @@ let initialSpisak = [
     {id: 151, naziv: "Pinokio Istinita priča (2021)"}, {id: 152, naziv: "Pobuna u kokošinjcu (2023) HR"}, {id: 153, naziv: "Pocrvenela Panda (2022)"}, {id: 154, naziv: "Priče iz skrivenog grada (2021)"}, {id: 155, naziv: "Princeza koju je oteo zmaj (2025)"}, {id: 156, naziv: "Princeza Late i Magični Vodeni Kamen (2020)"}, {id: 157, naziv: "Puss in Boots 1 (2011)"}, {id: 158, naziv: "Puss in Boots 2 The Last Wish (2022)"}, {id: 159, naziv: "Pusti vodu da miševi odu (2006) HR"}, {id: 160, naziv: "Rango (2011) HR"}, 
     {id: 161, naziv: "Ričard Roda 2 (2023)"}, {id: 162, naziv: "Rio 1 (2011)"}, {id: 163, naziv: "Rio 2 (2014)"}, {id: 164, naziv: "Rise of the Guardians (2012)"}, {id: 165, naziv: "Robinson Crusoe The Wild Life (2016)"}, {id: 166, naziv: "Ruby Gillman Teenage Kraken (2023)"}, {id: 167, naziv: "Scooby-Doo and the Loch Ness Monster (2004)"}, {id: 168, naziv: "Scooby-Doo and the Reluctant Werewolf (1988)"}, {id: 169, naziv: "Shark Tale (2004) HR"}, {id: 170, naziv: "Shrek 1 (2001) HR"}, 
     {id: 171, naziv: "Shrek 2 (2004) HR"}, {id: 172, naziv: "Shrek 3 (2007) HR"}, {id: 173, naziv: "Shrek 4 Forever After (2010)"}, {id: 174, naziv: "Sinbad Legend of the Seven Seas (2003) HR"}, {id: 175, naziv: "Sing 1 (2016) HR"}, {id: 176, naziv: "Sing 2 (2021)"}, {id: 177, naziv: "Snow White (2025)"}, {id: 178, naziv: "Sonic The Hedgehog 1 (2020)"}, {id: 179, naziv: "Sonic The Hedgehog 2 (2022)"}, {id: 180, CustomProperty: true, naziv: "Sonic The Hedgehog 3 (2024)"}, 
-    {id: 181, naziv: "Space Jam 1 (1996)"}, {id: 182, naziv: "Space Jam 2 (2021)"}, {id: 183, naziv: "Spasioci u Australiji (1990)"}, {id: 184, naziv: "Spellbound (2024) HR"}, {id: 185, naziv: "Spider-Man Across the Spider-Verse (2023)"}, {id: 186, naziv: "Spirit Untamed (2021) HR"}, {id: 187, naziv: "Storks (2016) HR"}, {id: 188, naziv: "Stuart Little 1 (1999) HR"}, {id: 189, naziv: "Stuart Little 2 (2002) HR"}, {id: 190, naziv: "Stuart Little 3 (2005) HR"}, 
+    {id: 181, naziv: "Space Jam 1 (1996)"}, {id: 182, presidential: false, naziv: "Space Jam 2 (2021)"}, {id: 183, naziv: "Spasioci u Australiji (1990)"}, {id: 184, naziv: "Spellbound (2024) HR"}, {id: 185, naziv: "Spider-Man Across the Spider-Verse (2023)"}, {id: 186, naziv: "Spirit Untamed (2021) HR"}, {id: 187, naziv: "Storks (2016) HR"}, {id: 188, naziv: "Stuart Little 1 (1999) HR"}, {id: 189, naziv: "Stuart Little 2 (2002) HR"}, {id: 190, naziv: "Stuart Little 3 (2005) HR"}, 
     {id: 191, naziv: "Sundjer Bob - Prokletstvo Pirata (2025)"}, {id: 192, naziv: "Super Mario Galaxy Film (2026)"}, {id: 193, naziv: "Super Spori Super Moćni (2024) HR"}, {id: 194, naziv: "Škola Magičnih Životinja 2 (2022)"}, {id: 195, naziv: "Štrumfovi (2025)"}, {id: 196, naziv: "Taj Božić (2024) HR"}, {id: 197, naziv: "Tarzan (2013) HR"}, {id: 198, naziv: "Tarzan 2 (2005) HR"}, {id: 199, naziv: "Technotise Edit i Ja (2009)"}, {id: 200, naziv: "Teenage Mutant Ninja Turtles Mutant Mayhem (2023)"}, 
     {id: 201, naziv: "The Addams Family 1 (2019)"}, {id: 202, naziv: "The Addams Family 2 (2021)"}, {id: 203, naziv: "The Bad Guys (2022)"}, {id: 204, naziv: "The Boss Baby 1 (2017)"}, {id: 205, naziv: "The Boss Baby 2 (2021)"}, {id: 206, naziv: "The Croods 1 (2013)"}, {id: 207, naziv: "The Croods 2 (2020)"}, {id: 208, naziv: "The House Of Magic (2013)"}, {id: 209, naziv: "The Iron Giant (1999)"}, {id: 210, naziv: "The Lion King 2 Simbas Pride (1998) HR"}, 
     {id: 211, naziv: "The Lion King 3 Hakuna Matata (2004) HR"}, {id: 212, naziv: "The Mitchells vs the Machines (2021)"}, {id: 213, naziv: "The Prince of Egypt (1998) HR"}, {id: 214, naziv: "The Road to El Dorado (2000) HR"}, {id: 215, naziv: "The Secret Life of Pets 1 (2016)"}, {id: 216, naziv: "The Secret Life of Pets 2 (2019)"}, {id: 217, naziv: "The Seventh Dwarf (2017)"}, {id: 218, naziv: "The Smurfs 1 (2011)"}, {id: 219, naziv: "The Smurfs 2 (2013)"}, {id: 220, naziv: "The Smurfs The Lost Village (2017)"}, 
@@ -236,7 +297,6 @@ let initialSpisak = [
 
 let spisak = JSON.parse(localStorage.getItem("mojSpisak")) || initialSpisak;
 
-// Automatski reset ako pretraživač drži stare podatke u kojima je bio obrisani crtaći
 if (spisak.length !== initialSpisak.length || spisak.some(m => m.naziv.includes("Fox and the Hound"))) {
     spisak = initialSpisak;
     localStorage.setItem("mojSpisak", JSON.stringify(spisak));
